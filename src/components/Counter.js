@@ -1,5 +1,6 @@
 import classes from './Counter.module.css';
 import { useSelector, useDispatch } from 'react-redux';
+import { counterActions } from '../store/counter'
 
 const Counter = () => {
   // useSelector() allows us to get a slice (a tiny part) of the state. This is 
@@ -8,27 +9,32 @@ const Counter = () => {
   // useSelector(), we pass in a function that returns the slice of the 
   // state we want to work with. When you use useSelector(), react-redux
   // automatically sets up a subscription to the redux store for this component. 
-  const counter = useSelector(state => state.counter)
+  const counter = useSelector(state => state.counter.counter)
   
-  const show = useSelector(state => state.showCounter)
+  const show = useSelector(state => state.counter.showCounter)
 
   // calling useDispatch() will give you a dispatch function which you can execute
   const dispatch = useDispatch()
 
   const increaseHandler = () => {
-    dispatch({ type: "increment" })
+    // dispatch({ type: "increment" })
+    dispatch(counterActions.increment())
   }
 
   const incrementHandler = () => {
-    dispatch({ type: "increase", amount: 5 })
+    // dispatch({ type: "increase", amount: 5 })
+    dispatch(counterActions.increase(5))  //The value in the argument, will be stored in an extra
+    // field called 'payload' behind the scenes
   }
 
   const decreaseHandler = () => {
-    dispatch({ type: "decrement" })
+    // dispatch({ type: "decrement" })
+    dispatch(counterActions.decrement())
   }
 
   const toggleCounterHandler = () => {
-    dispatch({ type: "toggle" })
+    // dispatch({ type: "toggle" })
+    dispatch(counterActions.toggleCounter())
   };
 
   return (
